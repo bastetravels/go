@@ -355,6 +355,7 @@ section.alt { background: #fff; }
 .qb-field textarea {
   width: 100%;
   min-height: 48px;
+  height: 48px;
   line-height: 1.4;
   padding: 12px 14px;
   border: 1.5px solid var(--border);
@@ -364,10 +365,20 @@ section.alt { background: #fff; }
   color: var(--text);
   background: var(--bg);
   transition: border 0.2s;
+  box-sizing: border-box;
 }
 .qb-field input[type="date"] {
   position: relative;
   z-index: 1;
+  appearance: textfield;
+  -webkit-appearance: textfield;
+  padding-right: 44px;
+}
+.qb-field input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  opacity: 0.85;
 }
 .qb-field input:focus,
 .qb-field select:focus,
@@ -1282,14 +1293,18 @@ footer {
   .qb-field input[type="date"] {
     font-size: 14px;
     min-height: 48px;
-    padding: 12px 14px;
+    padding: 12px 14px 12px 14px;
     position: relative;
     z-index: 1;
+    appearance: textfield;
+    -webkit-appearance: textfield;
+    padding-right: 44px;
   }
   .qb-field input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
-    position: relative;
-    z-index: 2;
+    width: 24px;
+    height: 24px;
+    opacity: 0.85;
   }
   .legal-content .tbl th, .legal-content .tbl td { padding: 10px 12px; font-size: 12px; }
 }
