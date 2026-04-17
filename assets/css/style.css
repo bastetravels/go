@@ -340,7 +340,7 @@ section.alt { background: #fff; }
 .quick-book-head { margin-bottom: 20px; }
 .quick-book-head h3 { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
 .quick-book-head p { color: var(--text-muted); font-size: 13px; }
-.qb-field { margin-bottom: 14px; }
+.qb-field { margin-bottom: 14px; position: relative; z-index: 0; }
 .qb-field label {
   display: block;
   font-size: 11px;
@@ -354,6 +354,8 @@ section.alt { background: #fff; }
 .qb-field select,
 .qb-field textarea {
   width: 100%;
+  min-height: 48px;
+  line-height: 1.4;
   padding: 12px 14px;
   border: 1.5px solid var(--border);
   border-radius: 10px;
@@ -362,6 +364,10 @@ section.alt { background: #fff; }
   color: var(--text);
   background: var(--bg);
   transition: border 0.2s;
+}
+.qb-field input[type="date"] {
+  position: relative;
+  z-index: 1;
 }
 .qb-field input:focus,
 .qb-field select:focus,
@@ -1275,10 +1281,15 @@ footer {
   .qb-field-row { grid-template-columns: 1fr; }
   .qb-field input[type="date"] {
     font-size: 14px;
+    min-height: 48px;
     padding: 12px 14px;
+    position: relative;
+    z-index: 1;
   }
   .qb-field input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
+    position: relative;
+    z-index: 2;
   }
   .legal-content .tbl th, .legal-content .tbl td { padding: 10px 12px; font-size: 12px; }
 }
