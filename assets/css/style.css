@@ -1272,6 +1272,14 @@ footer {
   .topbar { font-size: 12px; padding: 8px 0; }
   .topbar .tb-right { display: none; }
   .topbar .tb-right a:first-child { display: flex; }
+  .qb-field-row { grid-template-columns: 1fr; }
+  .qb-field input[type="date"] {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+  .qb-field input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
   .legal-content .tbl th, .legal-content .tbl td { padding: 10px 12px; font-size: 12px; }
 }
 
