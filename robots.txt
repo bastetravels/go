@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /assets/js/
+Disallow: /service-worker.js
+Disallow: /offline.html
+Disallow: /404.html
+
+Sitemap: https://bastetravels.com/sitemap.xml
