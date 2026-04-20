@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baste Travels Review</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+        text-align: center;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 15px;
+        width: 320px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 20px;
+        font-size: 14px;
+        opacity: 0.9;
+    }
+
+    .stars {
+        font-size: 28px;
+        color: gold;
+        margin-bottom: 15px;
+        letter-spacing: 3px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #34a853;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #2c8c46;
+    }
+
+    .footer {
+        margin-top: 15px;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="card">
+    <h1>Baste Travels</h1>
+    <p>How was your trip? 🚗</p>
+
+    <div class="stars">★★★★★</div>
+
+    <button onclick="goToGoogle()">
+        Give Review on Google ⭐
+    </button>
+
+    <div class="footer">
+        Your feedback means a lot to us 🙏
+    </div>
+</div>
+
+<script>
+function goToGoogle(){
+    window.open("https://g.page/r/CVIbktFYdPznEBM/review", "_blank");
+}
+</script>
+
+</body>
+</html>
