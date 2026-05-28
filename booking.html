@@ -250,9 +250,7 @@
   <a href="https://wa.me/917507958364?text=Hi%20Baste%20Travels%2C%20I%20want%20to%20book%20a%20cab" target="_blank" rel="noopener" class="btn btn-green">💬 WhatsApp</a>
 </div>
 <script>
-  const backendHost = 'https://bastetravels.onrender.com/api';
-  const useRemoteBackend = ['bastetravels.com', 'bastetravels.onrender.com'].some((host) => window.location.host.includes(host));
-  window.PAYMENT_API_BASE = window.PAYMENT_API_BASE || (useRemoteBackend ? backendHost : '/api');
+  window.PAYMENT_API_BASE = window.PAYMENT_API_BASE || 'https://bastetravels.onrender.com/api';
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 <script src="assets/js/main.js" defer></script>
