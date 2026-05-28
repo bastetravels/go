@@ -132,13 +132,24 @@
     razorpayPayBtn.textContent = `Pay ₹${amount.toLocaleString('en-IN')}`;
   };
 
+  const parseJsonOrText = async (resp) => {
+    const text = await resp.text();
+    if (!text) return null;
+    try {
+      return JSON.parse(text);
+    } catch (_err) {
+      return { error: text.trim() || 'Unexpected server response.' };
+    }
+  };
+
   const fetchRazorpayKey = async () => {
     const resp = await fetch(`${paymentApiBase}/config`);
     if (!resp.ok) {
-      throw new Error('Unable to load payment configuration.');
+      const errorData = await parseJsonOrText(resp);
+      throw new Error(errorData?.error || 'Unable to load payment configuration.');
     }
-    const data = await resp.json();
-    if (!data.razorpay_key_id) {
+    const data = await parseJsonOrText(resp);
+    if (!data || !data.razorpay_key_id) {
       throw new Error('Razorpay public key is unavailable.');
     }
     return data.razorpay_key_id;
@@ -152,11 +163,15 @@
     });
 
     if (!resp.ok) {
-      const errorData = await resp.json().catch(() => ({ error: 'Unable to create payment order.' }));
-      throw new Error(errorData.error || 'Unable to create payment order.');
+      const errorData = await parseJsonOrText(resp);
+      throw new Error(errorData?.error || `Unable to create payment order. (${resp.status})`);
     }
 
-    return resp.json();
+    const data = await parseJsonOrText(resp);
+    if (!data || !data.order_id) {
+      throw new Error('Invalid response from payment server.');
+    }
+    return data;
   };
 
   const verifyPayment = async (payload) => {
@@ -167,11 +182,11 @@
     });
 
     if (!resp.ok) {
-      const errorData = await resp.json().catch(() => ({ error: 'Payment verification failed.' }));
-      throw new Error(errorData.error || 'Payment verification failed.');
+      const errorData = await parseJsonOrText(resp);
+      throw new Error(errorData?.error || `Payment verification failed. (${resp.status})`);
     }
 
-    return resp.json();
+    return await parseJsonOrText(resp);
   };
 
   const openRazorpayCheckout = async (order) => {

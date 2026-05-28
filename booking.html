@@ -249,7 +249,11 @@
   <a href="tel:+917507958364" class="btn btn-primary">📞 Call Now</a>
   <a href="https://wa.me/917507958364?text=Hi%20Baste%20Travels%2C%20I%20want%20to%20book%20a%20cab" target="_blank" rel="noopener" class="btn btn-green">💬 WhatsApp</a>
 </div>
-<script>window.PAYMENT_API_BASE = window.PAYMENT_API_BASE || '/api';</script>
+<script>
+  const sameSiteBackend = window.location.host.includes('bastetravels.com');
+  const renderBackend = 'https://bastetravels.onrender.com/api';
+  window.PAYMENT_API_BASE = window.PAYMENT_API_BASE || (sameSiteBackend ? renderBackend : '/api');
+</script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
