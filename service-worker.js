@@ -1,5 +1,5 @@
-/* Baste Travels Service Worker — v2026.1 */
-const CACHE = 'baste-travels-v2026-1';
+/* Baste Travels Service Worker — v2026.2 */
+const CACHE = 'baste-travels-v2026-2';
 const STATIC = [
   '/',
   '/index.html',
@@ -39,6 +39,20 @@ self.addEventListener('fetch', (e) => {
         caches.open(CACHE).then((c) => c.put(req, clone)).catch(() => {});
         return r;
       }).catch(() => caches.match(req).then((r) => r || caches.match('/offline.html')))
+    );
+    return;
+  }
+
+  // JS/CSS/JSON: network-first to ensure updated client code is loaded
+  if (url.origin === location.origin && ['.js', '.css', '.json'].some((ext) => url.pathname.endsWith(ext))) {
+    e.respondWith(
+      fetch(req).then((r) => {
+        if (r.ok) {
+          const clone = r.clone();
+          caches.open(CACHE).then((c) => c.put(req, clone)).catch(() => {});
+        }
+        return r;
+      }).catch(() => caches.match(req).then((cached) => cached || new Response('Offline', { status: 503 })))
     );
     return;
   }
