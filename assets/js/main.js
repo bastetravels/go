@@ -112,4 +112,141 @@
       navigator.serviceWorker.register('service-worker.js').catch(() => {});
     });
   }
+
+  // ─── Razorpay checkout integration for booking page ───
+  const paymentApiBase = window.PAYMENT_API_BASE || '/api';
+  const razorpayPayBtn = document.getElementById('razorpayPayBtn');
+  const paymentAmountInput = document.getElementById('paymentAmount');
+  const paymentStatus = document.getElementById('paymentStatus');
+
+  const setPaymentStatus = (message, type = 'info') => {
+    if (!paymentStatus) return;
+    paymentStatus.style.display = 'block';
+    paymentStatus.style.color = type === 'error' ? '#b00020' : type === 'success' ? '#047857' : '#1b4f8f';
+    paymentStatus.textContent = message;
+  };
+
+  const updatePayButtonLabel = () => {
+    if (!razorpayPayBtn || !paymentAmountInput) return;
+    const amount = parseFloat(paymentAmountInput.value) || 3600;
+    razorpayPayBtn.textContent = `Pay ₹${amount.toLocaleString('en-IN')}`;
+  };
+
+  const fetchRazorpayKey = async () => {
+    const resp = await fetch(`${paymentApiBase}/config`);
+    if (!resp.ok) {
+      throw new Error('Unable to load payment configuration.');
+    }
+    const data = await resp.json();
+    if (!data.razorpay_key_id) {
+      throw new Error('Razorpay public key is unavailable.');
+    }
+    return data.razorpay_key_id;
+  };
+
+  const createOrder = async (amountPaise) => {
+    const resp = await fetch(`${paymentApiBase}/create-order`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: amountPaise, currency: 'INR' }),
+    });
+
+    if (!resp.ok) {
+      const errorData = await resp.json().catch(() => ({ error: 'Unable to create payment order.' }));
+      throw new Error(errorData.error || 'Unable to create payment order.');
+    }
+
+    return resp.json();
+  };
+
+  const verifyPayment = async (payload) => {
+    const resp = await fetch(`${paymentApiBase}/verify-payment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!resp.ok) {
+      const errorData = await resp.json().catch(() => ({ error: 'Payment verification failed.' }));
+      throw new Error(errorData.error || 'Payment verification failed.');
+    }
+
+    return resp.json();
+  };
+
+  const openRazorpayCheckout = async (order) => {
+    const keyId = await fetchRazorpayKey();
+    if (typeof window.Razorpay !== 'function') {
+      throw new Error('Razorpay checkout script failed to load.');
+    }
+
+    const options = {
+      key: keyId,
+      amount: order.amount,
+      currency: order.currency,
+      name: 'Baste Travels',
+      description: 'Cab booking payment',
+      order_id: order.order_id,
+      handler: async function (response) {
+        try {
+          setPaymentStatus('Verifying payment…');
+          const result = await verifyPayment(response);
+          if (result.success) {
+            setPaymentStatus('Payment successful. Thank you!', 'success');
+          } else {
+            setPaymentStatus(result.error || 'Payment verification failed.', 'error');
+          }
+        } catch (error) {
+          setPaymentStatus(error.message || 'Verification failed.', 'error');
+        }
+      },
+      modal: {
+        ondismiss: () => {
+          setPaymentStatus('Payment modal closed. No payment was completed.', 'error');
+        },
+      },
+      prefill: {
+        name: document.getElementById('qb-name')?.value || '',
+        contact: document.getElementById('qb-phone')?.value || '',
+      },
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (response) {
+      setPaymentStatus(response.error?.description || 'Payment failed. Please try again.', 'error');
+    });
+    rzp.open();
+  };
+
+  if (paymentAmountInput) {
+    paymentAmountInput.addEventListener('input', updatePayButtonLabel);
+    updatePayButtonLabel();
+  }
+
+  if (razorpayPayBtn) {
+    razorpayPayBtn.addEventListener('click', async (event) => {
+      event.preventDefault();
+      if (!paymentAmountInput) return;
+
+      const amountRupees = parseFloat(paymentAmountInput.value);
+      if (Number.isNaN(amountRupees) || amountRupees <= 0) {
+        setPaymentStatus('Enter a valid payment amount.', 'error');
+        return;
+      }
+
+      const amountPaise = Math.round(amountRupees * 100);
+      if (amountPaise < 100) {
+        setPaymentStatus('Amount must be at least ₹1.00.', 'error');
+        return;
+      }
+
+      try {
+        setPaymentStatus('Creating payment order…');
+        const order = await createOrder(amountPaise);
+        await openRazorpayCheckout(order);
+      } catch (error) {
+        setPaymentStatus(error.message || 'Unable to start payment.', 'error');
+      }
+    });
+  }
 })();
