@@ -418,6 +418,7 @@ section.alt { background: #fff; }
 .qb-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .qb-submit { width: 100%; justify-content: center; margin-top: 6px; padding: 14px; }
 .qb-note { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+.qb-note a { color: var(--primary-dark); text-decoration: underline; }
 
 /* ─── FARE BOX ─── */
 .fare-box {
@@ -1013,7 +1014,7 @@ section.alt { background: #fff; }
   margin: 24px 0;
 }
 .article .highlight-box p { margin-bottom: 0; color: var(--text); }
-.article .highlight-box a, .article p a, .pay-tips a { color: var(--primary-dark); text-decoration: underline; text-underline-offset: 2px; }
+.article .highlight-box a, .article p a, .article li a, .pay-tips a { color: var(--primary-dark); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ─── LEGAL ─── */
 .legal-content {
@@ -1127,7 +1128,7 @@ footer {
 }
 .foot-main {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
   gap: 40px;
   padding-bottom: 32px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -1361,6 +1362,47 @@ footer {
   .assure-amt { font-size: 52px; }
 }
 
+.card-link { display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 700; color: var(--primary-dark); }
+.card-link:hover { text-decoration: underline; }
+
+/* ─── LANDING PAGES (service pages under /slug/) ─── */
+.lp-table-wrap { overflow-x: auto; margin: 18px 0 22px; border: 1px solid var(--border); border-radius: var(--radius); background: #fff; }
+.lp-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 460px; }
+.lp-table caption { caption-side: bottom; text-align: left; padding: 10px 14px; font-size: 12px; color: var(--text-muted); }
+.lp-table th { text-align: left; font-size: 12px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--text-muted); background: var(--bg-alt); padding: 10px 14px; }
+.lp-table td { padding: 11px 14px; border-top: 1px solid var(--border-light); vertical-align: top; font-variant-numeric: tabular-nums; }
+.lp-table td a { color: var(--primary-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.lp-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 1000px; margin: 0 auto; }
+.lp-related-card { display: grid; gap: 4px; padding: 18px 20px; background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius); transition: border-color .2s, box-shadow .2s, transform .2s; }
+.lp-related-card strong { color: var(--text); font-size: 15px; }
+.lp-related-card span { color: var(--text-muted); font-size: 13px; }
+.lp-related-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.lp-fleet { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.lp-vehicle { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; align-items: start; padding: 22px; background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.lp-vehicle-art { color: var(--primary); background: var(--primary-soft); border-radius: var(--radius); padding: 18px 12px; display: grid; place-items: center; }
+.lp-vehicle-art svg { width: 100%; height: auto; }
+.lp-vehicle h2 { font-size: 20px; font-weight: 800; letter-spacing: -.3px; }
+.lp-vehicle-models { color: var(--primary-dark); font-weight: 600; font-size: 14px; margin: 2px 0 10px; }
+.lp-specs { list-style: none; padding: 0; margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--text-muted); }
+.lp-specs strong { color: var(--text); }
+.lp-vehicle p { font-size: 14px; color: var(--text-muted); margin-bottom: 14px; }
+.route-hero-grid > * { min-width: 0; }
+.hero-badge { max-width: 100%; }
+@media (max-width: 480px) {
+  .route-hero .hero-cta .btn { white-space: normal; justify-content: center; text-align: center; }
+}
+@media (max-width: 380px) {
+  .route-hero h1 { font-size: 27px; letter-spacing: -.8px; hyphens: auto; }
+}
+.lp-fleet-note { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 18px; }
+@media (max-width: 860px) {
+  .lp-fleet { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .lp-vehicle { grid-template-columns: 1fr; }
+  .lp-vehicle-art { max-width: 200px; }
+}
+
 /* ─── POLISH: typography, accessibility, balanced grids ─── */
 h1, h2, h3, h4 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
@@ -1426,7 +1468,7 @@ p, li { text-wrap: pretty; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .routes-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
-  .coverage-grid { grid-template-columns: 1fr 1fr; }
+  .coverage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .foot-main { grid-template-columns: 1fr; gap: 28px; }
   .route-meta { grid-template-columns: 1fr 1fr 1fr; }
   .route-hero-stats { grid-template-columns: 1fr 1fr; }
@@ -1474,4 +1516,8 @@ p, li { text-wrap: pretty; }
 
 @media print {
   header, footer, .sticky-bar, .float-cta, .cta-section, .topbar { display: none; }
+}
+
+@media (max-width: 420px) {
+  .coverage-grid { grid-template-columns: 1fr; }
 }
