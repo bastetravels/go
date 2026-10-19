@@ -5,6 +5,43 @@
 (function() {
   'use strict';
 
+  // ─── Analytics (GA4) ───
+  // Set GA4_ID to the property's Measurement ID (G-XXXXXXXXXX) to start sending data.
+  // Until then events are only pushed to window.dataLayer, so nothing breaks.
+  const GA4_ID = '';
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  if (GA4_ID) {
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', GA4_ID);
+  }
+  const track = (name, params = {}) => {
+    gtag('event', name, Object.assign({ page_title: document.title, page_path: location.pathname }, params));
+  };
+  const ctaLocation = (el) => {
+    const zone = el.closest('header, .mobile-drawer, .hero, .page-hero, .route-hero, .assure, .sticky-bar, .float-cta, .cta-section, footer, form');
+    if (!zone) return 'body';
+    return zone.id || zone.className.split(' ')[0] || zone.tagName.toLowerCase();
+  };
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (/wa\.me|api\.whatsapp\.com/.test(href)) track('whatsapp_click', { cta_location: ctaLocation(a) });
+    else if (href.startsWith('tel:')) track('call_click', { cta_location: ctaLocation(a) });
+    else if (/(^|\/)pay\.html|razorpay\.me/.test(href)) track('pay_click', { cta_location: ctaLocation(a) });
+  });
+  document.addEventListener('submit', (e) => {
+    const form = e.target;
+    const val = (id) => (form.querySelector(`#${id}`) || {}).value || '';
+    if (form.id === 'quickBookForm') track('quote_form_submit', { trip_type: val('qb-type'), from: val('qb-from'), to: val('qb-to') });
+    else track('quote_form_submit', { form_name: form.id || form.dataset.waForm || 'form' });
+  }, true);
+
   // ─── Sticky header shadow ───
   const header = document.querySelector('header');
   if (header) {
@@ -264,6 +301,7 @@
           const result = await verifyPayment(response);
           if (result.success) {
             setPaymentStatus('Payment successful. Thank you!', 'success');
+            track('payment_success', { value: order.amount / 100, currency: order.currency });
           } else {
             setPaymentStatus(result.error || 'Payment verification failed.', 'error');
           }
