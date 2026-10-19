@@ -1304,6 +1304,7 @@ p, li { text-wrap: pretty; }
 }
 .skip-link:focus { top: 12px; }
 .trust-row { display: grid; grid-template-columns: repeat(2, max-content); gap: 10px 28px; }
+@media (max-width: 640px) { .trust-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; } }
 @media (min-width: 981px) {
   .services-grid, .coverage-grid { grid-template-columns: repeat(3, 1fr); }
 }
