@@ -1,5 +1,5 @@
 /* Baste Travels Service Worker — v2026.2 */
-const CACHE = 'baste-travels-v2026-5';
+const CACHE = 'baste-travels-v2026-6';
 const STATIC = [
   '/',
   '/index.html',

@@ -90,6 +90,16 @@
     });
   }
 
+  // ─── Page-aware WhatsApp links: tag generic inquiries with the page they came from ───
+  const GENERIC_WA_TEXT = 'Hi%20Baste%20Travels%2C%20I%20want%20to%20book%20a%20cab';
+  const pageH1 = document.querySelector('h1');
+  const pageTopic = pageH1 ? pageH1.textContent.replace(/\s+/g, ' ').trim() : '';
+  if (pageTopic && !document.body.dataset.waGeneric) {
+    document.querySelectorAll(`a[href$="text=${GENERIC_WA_TEXT}"]`).forEach((a) => {
+      a.href += encodeURIComponent(` (${pageTopic})`);
+    });
+  }
+
   // ─── Generic form → WhatsApp (form[data-wa-form], fields with data-wa-label) ───
   document.querySelectorAll('form[data-wa-form]').forEach((form) => {
     form.addEventListener('submit', (e) => {
