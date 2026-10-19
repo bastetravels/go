@@ -1,25 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Baste Travels">
-  <defs>
-    <radialGradient id="bg" cx="30%" cy="20%" r="95%">
-      <stop offset="0" stop-color="#26262c"/>
-      <stop offset=".55" stop-color="#111114"/>
-      <stop offset="1" stop-color="#050506"/>
-    </radialGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f7e2a3"/>
-      <stop offset=".45" stop-color="#d9ad52"/>
-      <stop offset=".75" stop-color="#b8842c"/>
-      <stop offset="1" stop-color="#ecc874"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
-  <rect x="22" y="22" width="468" height="468" rx="96" fill="none" stroke="url(#gold)" stroke-opacity=".45" stroke-width="4"/>
-  <g fill="url(#gold)">
-    <path fill-rule="evenodd" d="M180 112H310C366 112 398 144 398 188C398 216 384 237 360 248C396 259 418 287 418 326C418 374 382 404 324 404H180Z
-      M240 162H302C326 162 338 174 338 192C338 210 326 222 302 222H240Z
-      M240 270H316C342 270 356 284 356 306C356 330 342 352 316 352H240Z"/>
-    <rect x="72"  y="260" width="88" height="18" rx="9"/>
-    <rect x="100" y="304" width="60" height="18" rx="9" opacity=".8"/>
-    <rect x="124" y="348" width="36" height="18" rx="9" opacity=".6"/>
+  <rect width="512" height="512" rx="112" fill="#ffffff"/>
+  <g fill="none" stroke-width="64">
+    <path d="M286 250A68 68 0 0 1 286 386" stroke="#FBBC1A"/>
+    <path d="M286 386H174" stroke="#12A150"/>
+    <path d="M174 126H286A62 62 0 0 1 286 250H174" stroke="#EA4335"/>
   </g>
+  <path d="M128 94H174V418H128A18 18 0 0 1 110 400V112A18 18 0 0 1 128 94Z" fill="#1A6EF5"/>
 </svg>
