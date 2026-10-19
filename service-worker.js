@@ -1,5 +1,5 @@
 /* Baste Travels Service Worker — v2026.2 */
-const CACHE = 'baste-travels-v2026-3';
+const CACHE = 'baste-travels-v2026-4';
 const STATIC = [
   '/',
   '/index.html',
@@ -12,7 +12,8 @@ const STATIC = [
   '/offline.html',
   '/assets/css/style.css',
   '/assets/js/main.js',
-  '/manifest.json'
+  '/manifest.json',
+  '/assets/img/android-chrome-192x192.png'
 ];
 
 self.addEventListener('install', (e) => {
