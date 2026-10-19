@@ -1,5 +1,5 @@
 /* Baste Travels Service Worker — v2026.2 */
-const CACHE = 'baste-travels-v2026-4';
+const CACHE = 'baste-travels-v2026-5';
 const STATIC = [
   '/',
   '/index.html',
@@ -9,6 +9,7 @@ const STATIC = [
   '/contact.html',
   '/booking.html',
   '/pay.html',
+  '/verified-cab-service-pune.html',
   '/offline.html',
   '/assets/css/style.css',
   '/assets/js/main.js',

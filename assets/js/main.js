@@ -90,6 +90,18 @@
     });
   }
 
+  // ─── Generic form → WhatsApp (form[data-wa-form], fields with data-wa-label) ───
+  document.querySelectorAll('form[data-wa-form]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const lines = [`Hi Baste Travels, ${form.dataset.waForm}`, ''];
+      form.querySelectorAll('[data-wa-label]').forEach((field) => {
+        if (field.value) lines.push(`${field.dataset.waLabel}: ${field.value}`);
+      });
+      window.open(`https://wa.me/917507958364?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+    });
+  });
+
   // ─── Reveal on scroll ───
   const io = new IntersectionObserver((entries) => {
     entries.forEach((el) => {

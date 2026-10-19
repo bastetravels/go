@@ -1272,6 +1272,27 @@ footer {
   transform: translateY(0);
 }
 
+/* ─── SAFETY ASSURANCE HIGHLIGHT (home) ─── */
+.assure { padding: 56px 0; background: var(--bg); }
+.assure-inner {
+  display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: center;
+  background: linear-gradient(135deg, #0f55d1, #1a6ef5 60%, #3b86ff);
+  color: #fff; border-radius: var(--radius-xl); padding: 40px; box-shadow: var(--shadow-brand);
+}
+.assure-tag { display: inline-block; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+.assure h2 { font-size: clamp(24px, 3.4vw, 36px); font-weight: 800; letter-spacing: -.5px; line-height: 1.2; margin-bottom: 12px; color: #fff; }
+.assure h2 span { color: #ffd166; }
+.assure p { color: rgba(255,255,255,.9); font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
+.assure-list { list-style: none; padding: 0; margin: 0 0 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; font-size: 14px; font-weight: 600; }
+.assure-price { background: #fff; color: var(--text); border-radius: var(--radius-lg); padding: 28px 32px; text-align: center; font-weight: 600; font-size: 14px; min-width: 200px; }
+.assure-amt { font-size: 56px; font-weight: 800; color: var(--primary); letter-spacing: -2px; line-height: 1; margin-bottom: 6px; }
+.assure-amt small { font-size: 20px; color: var(--text-muted); letter-spacing: 0; }
+.assure-eg { margin-top: 10px; font-size: 13px; color: var(--green); font-weight: 700; }
+@media (max-width: 780px) {
+  .assure-inner { grid-template-columns: 1fr; padding: 28px 22px; }
+  .assure-list { grid-template-columns: 1fr; }
+}
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1140px) {
   .nav-links { display: none; }
