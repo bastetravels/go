@@ -1,5 +1,5 @@
 /* Baste Travels Service Worker — v2026.2 */
-const CACHE = 'baste-travels-v2026-2';
+const CACHE = 'baste-travels-v2026-3';
 const STATIC = [
   '/',
   '/index.html',
@@ -8,6 +8,7 @@ const STATIC = [
   '/about.html',
   '/contact.html',
   '/booking.html',
+  '/pay.html',
   '/offline.html',
   '/assets/css/style.css',
   '/assets/js/main.js',

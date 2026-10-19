@@ -113,6 +113,40 @@
     });
   }
 
+  // ─── Pay page: auto-open Razorpay payment link ───
+  // Link + delay live on #payBox (data-pay-url, data-auto-open seconds); ?auto=0 disables.
+  const payBox = document.getElementById('payBox');
+  if (payBox && payBox.dataset.payUrl) {
+    const payUrl = payBox.dataset.payUrl;
+    const delay = parseInt(payBox.dataset.autoOpen, 10);
+    const autoOff = new URLSearchParams(location.search).get('auto') === '0';
+    const countdown = document.getElementById('payCountdown');
+    const secEl = document.getElementById('payCountdownSec');
+    const cancelBtn = document.getElementById('payCancelBtn');
+    const payNowBtn = document.getElementById('payNowBtn');
+    if (payNowBtn) payNowBtn.href = payUrl;
+
+    if (!autoOff && delay > 0 && countdown) {
+      let left = delay;
+      if (secEl) secEl.textContent = left;
+      countdown.hidden = false;
+      const timer = setInterval(() => {
+        left -= 1;
+        if (secEl) secEl.textContent = left;
+        if (left <= 0) {
+          clearInterval(timer);
+          window.location.assign(payUrl);
+        }
+      }, 1000);
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+          clearInterval(timer);
+          countdown.hidden = true;
+        });
+      }
+    }
+  }
+
   // ─── Razorpay checkout integration for booking page ───
   const paymentApiBase = window.PAYMENT_API_BASE || '/api';
   const razorpayPayBtn = document.getElementById('razorpayPayBtn');
