@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Baste Travels">
-  <rect width="512" height="512" rx="112" fill="#ffffff"/>
-  <g fill="none" stroke-width="64">
-    <path d="M286 250A68 68 0 0 1 286 386" stroke="#FBBC1A"/>
-    <path d="M286 386H174" stroke="#12A150"/>
-    <path d="M174 126H286A62 62 0 0 1 286 250H174" stroke="#EA4335"/>
-  </g>
-  <path d="M128 94H174V418H128A18 18 0 0 1 110 400V112A18 18 0 0 1 128 94Z" fill="#1A6EF5"/>
-</svg>
